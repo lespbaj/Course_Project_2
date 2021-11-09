@@ -1,0 +1,20 @@
+"0","g  <-  ggplot(y)"
+"0","g + geom_col(aes(y$year, y$`sum(Emissions)`),col=""steelblue"") + geom_line(aes(y$year, y$`sum(Emissions)`), lwd = 2, col = ""green"") + geom_point(aes(y$year, y$`sum(Emissions)`), lwd = 4 , col = ""red"") + labs( x= ""years"", y = ""Emissions uin Tons"") + ggtitle( ""Coal Emissions in Tons"")"
+"2","Warning:"
+"2"," Use of `y$year` is discouraged. Use `year` instead.
+"
+"2","Warning:"
+"2"," Use of `y$`sum(Emissions)`` is discouraged. Use `sum(Emissions)` instead.
+"
+"2","Warning:"
+"2"," Use of `y$year` is discouraged. Use `year` instead.
+"
+"2","Warning:"
+"2"," Use of `y$`sum(Emissions)`` is discouraged. Use `sum(Emissions)` instead.
+"
+"2","Warning:"
+"2"," Use of `y$year` is discouraged. Use `year` instead.
+"
+"2","Warning:"
+"2"," Use of `y$`sum(Emissions)`` is discouraged. Use `sum(Emissions)` instead.
+"

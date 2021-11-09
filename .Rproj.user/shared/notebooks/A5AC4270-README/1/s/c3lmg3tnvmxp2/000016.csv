@@ -1,0 +1,8 @@
+"0","  with(x ,{"
+"0","            plot ( year,  total_PM2.5 , col = ""red"", pch = 3, ylim= c(0,5000), ylab = ""Total PM2.5"", xlab = ""years"")"
+"0","            lo <- lm(total_PM2.5~year)"
+"0","            abline(lo, col=""green"", lty =""dotdash"")"
+"0","            text (x= 2004, 2800, ""linear regession"", srt = -23, col = ""green"")"
+"0","            title(main=""Total PM2.5 Tons per year"", outer = T)"
+"0","          }"
+"0","      )"

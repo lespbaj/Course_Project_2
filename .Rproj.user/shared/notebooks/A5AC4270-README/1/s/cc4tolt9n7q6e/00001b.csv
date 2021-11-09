@@ -1,0 +1,8 @@
+"0","x <- NEI  %>% filter(fips == ""24510"")  %>%  group_by(across(c(year, type))) %>%  summarise (sum(Emissions))"
+"1","`summarise()` has grouped output by 'year'. You can override using the `.groups` argument.
+"
+"0","colnames(x) <- c(""year"", ""type"", ""Emissions"")"
+"0","g <-ggplot(x)"
+"0","g + geom_point (aes(x$year, x$Emissions, color=x$type), lwd = 4 ) +"
+"0","  geom_line (aes(x$year, x$Emissions, color=x$type)   )"
+"0",""

@@ -1,0 +1,55 @@
+ext_csv <- function (fileurl, filedest){
+  library(data.table)
+    filedest <- paste(".//", filedest, sep="")
+    download.file(fileurl, destfile =  filedest , method = "curl")
+    
+    # Read data into data.frame
+    datos <- as.d ata.table(read.csv(filedest))
+  
+}
+ext_xlsx <- function (fileurl, filedest, col, row){
+  ##col numero de las columnas 7:15
+  ##row numero de las columnas 18:23
+  library(data.table)
+  
+  filedest <- paste(".//", filedest, sep="")
+  download.file(fileurl, filedest, method = "curl")
+  library(xlsx)
+
+  dat <- read.xlsx(filedest, sheetIndex=1, colIndex = col, rowIndex = row)
+}
+
+
+
+ext_xml <- function (fileurl,  etiqueta){
+
+  library(XML)
+  BalResto <- xmlTreeParse(sub("s", "", fileurl), useInternal=TRUE)
+  rootNode <- xmlRoot(BalResto)
+  datos <- xpathSApply(rootNode, etiqueta, xmlValue)
+  
+}
+
+ext_jpeg <- function (fileurl, filedest){
+  library(jpeg)
+  filedest <- paste(".//", filedest, sep="")
+  download.file(fileurl, destfile =  filedest ,method = "curl" )
+  readJPEG(filedest, native= TRUE)
+  
+  
+}
+ext_otros <- function (fileurl, filedest){
+ 
+  filedest <- paste(".//", filedest, sep="")
+  download.file(fileurl, destfile =  filedest )
+  
+  
+}
+
+Mean_tbl_field <- function(X, field){
+  
+  gb  <-  unique(c[, field])
+  Mean_tbl_field <- aggregate(select_if(x,is.numeric), by =gb, FUN=mean)
+  
+  
+}

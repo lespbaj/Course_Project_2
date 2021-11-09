@@ -1,0 +1,101 @@
+---
+title: "R Notebook"
+output:
+  html_document:
+    df_print: paged
+---
+
+This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute code within the notebook, the results appear beneath the code.
+
+```{r}
+library(dplyr)
+source("~/GitHub/Course_Project_2/SourceCode.R")
+NEI  <- nei()
+str(NEI)
+```
+
+1.  **Have total emissions from PM2.5 decreased in the United States from 1999 to 2008? Using the base plotting system, make a plot showing the total PM2.5 emission from all sources for each of the years 1999, 2002, 2005, and 2008.**
+
+    the answer is yes as we can evidence in the following graph. This graph is in millions Tons for a better understanding:
+
+```{r}
+  x <-NEI %>% group_by(year) %>% summarise (sum(Emissions)/1000000)
+  colnames(x) <- c("year", "total_PM2.5" )
+ 
+  with( x, {
+    barplot(total_PM2.5, ylab = "Total PM2.5", ylim = c(0, 10), names.arg = year, col="steelblue")
+    text(year, total_PM2.5 + 1, labels = as.character(round(total_PM2.5,2)))
+    lines(total_PM2.5,  lwd = 2,col="red",lty=1)
+    mtext(2,text="(in Millions)",line=2)
+    
+})
+title(main="Total Emissions PM2.5 Tons in millions per year", outer = T)
+```
+
+2.  **Have total emissions from PM2.5 decreased in the Baltimore City, Maryland (**\color{red}{\verb|fips == "24510"|}**fips == "24510") from 1999 to 2008? Use the base plotting system to make a plot answering this question.**
+
+```{r}
+  x  <- NEI %>% filter(fips == "24510")  %>%   group_by(year)  %>% summarise(sum(Emissions))
+  colnames(x) <- c("year", "total_PM2.5" )
+```
+
+We could say that, in general, it has decreased. we only have an exception in 2005 but as we can see the statistical trend is negative.
+
+```{r}
+  x  <- NEI %>% filter(fips == "24510")  %>%   group_by(year)  %>% summarise(sum(Emissions))
+  colnames(x) <- c("year", "total_PM2.5" )
+  
+  par (mfcol = c(1,2), mar=c(1,1,1,1), oma = c(0,0,2,0))
+  with(x ,{
+            barplot(x$total_PM2.5, ylab = "Total PM2.5",xlab = "years", ylim = c(0, 5000), names.arg = x$year, col="steelblue")
+            text(year, total_PM2.5 + 100, labels = as.character(round(x$total_PM2.5)))
+            lines( total_PM2.5, lwd = 2,col="red",lty=1)
+            mtext(2,text="Total",line=2, outer= TRUE)
+            
+            }
+        )
+  with(x ,{
+            plot ( year,  total_PM2.5 , col = "red", pch = 3, ylim= c(0,5000), ylab = "Total PM2.5", xlab = "years")
+            lo <- lm(total_PM2.5~year)
+            abline(lo, col="green", lty ="dotdash")
+            text (x= 2004, 2800, "linear regession", srt = -23, col = "green")
+            title(main="Total PM2.5 Tons per year", outer = T)
+          }
+      )
+  
+```
+
+3.  **Of the four types of sources indicated by the** \color{red}{\verb|type|}**type (point, nonpoint, onroad, nonroad) variable, which of these four sources have seen decreases in emissions from 1999--2008 for Baltimore City? Which have seen increases in emissions from 1999--2008? Use the ggplot2 plotting system to make a plot answer this question.**
+
+```{r}
+library(ggplot2)
+x <- NEI  %>% filter(fips == "24510")  %>%  group_by(across(c(year, type))) %>%  summarise (sum(Emissions))
+colnames(x) <- c("year", "type", "Emissions")
+
+```
+
+añsldkñ
+
+```{r}
+x <- NEI  %>% filter(fips == "24510")  %>%  group_by(across(c(year, type))) %>%  summarise (sum(Emissions))
+colnames(x) <- c("year", "type", "Emissions")
+g <-ggplot(x)
+g + geom_point (aes(x$year, x$Emissions, color=x$type), lwd = 4 ) +
+  geom_line (aes(x$year, x$Emissions, color=x$type)   )
+
+```
+
+4.  **Across the United States, how have emissions from coal combustion-related sources changed from 1999--2008?**
+
+```{r}
+x <- inner_join(NEI, SCC, by = c("SCC" = "SCC"))
+y  <-  x %>% filter (grepl('[Cc]oal', x$SCC.Level.Three)) %>% group_by(year) %>% summarise(sum(Emissions))
+```
+
+kjhkhhkj
+
+```{r}
+g  <-  ggplot(y)
+g + geom_col(aes(y$year, y$`sum(Emissions)`),col="steelblue") + geom_line(aes(y$year, y$`sum(Emissions)`), lwd = 2, col = "green") + geom_point(aes(y$year, y$`sum(Emissions)`), lwd = 4 , col = "red") + labs( x= "years", y = "Emissions uin Tons") + ggtitle( "Coal Emissions in Tons")
+
+```
