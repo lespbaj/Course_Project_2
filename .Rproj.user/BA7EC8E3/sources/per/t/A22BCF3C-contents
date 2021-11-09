@@ -1,0 +1,17 @@
+inicio
+source("~/GitHub/Course_Project_2/SourceCode.R")
+inicio
+Inicio
+source("~/GitHub/Course_Project_2/SourceCode.R")
+source("~/GitHub/Course_Project_2/SourceCode.R")
+NEI <- nei()
+SCC <- scc()
+library(ggplot2)
+g <-ggplot(data=NEI)
+g + geom_boxplot(NEI$year, NEI$Emissions )
+g + geom_boxplot(aes(NEI$year, NEI$Emissions) )
+str (NEI)
+?geom_boxplot
+g + geom_boxplotaes(x =NEI$year, y =NEI$Emissions) )
+g + geom_boxplot(aes(x =NEI$year, y =NEI$Emissions) )
+g + geom_boxplot(aes(x =factor(NEI$year), y =NEI$Emissions) )
