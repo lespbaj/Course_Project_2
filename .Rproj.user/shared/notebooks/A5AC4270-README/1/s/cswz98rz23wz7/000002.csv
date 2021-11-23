@@ -1,2 +1,0 @@
-"0","x <- inner_join(NEI, SCC, by = c(""SCC"" = ""SCC""))"
-"0","y  <-  x %>% filter (grepl('[Cc]oal', x$SCC.Level.Three)) %>% group_by(year) %>% summarise(sum(Emissions))"
